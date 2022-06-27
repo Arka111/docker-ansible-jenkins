@@ -9,7 +9,7 @@ pipeline{
     stages{
         stage('SCM'){
             steps{
-                git credentialsId: 'github', 
+                git credentialsId: 'Arka111', 
                     url: 'https://github.com/Arka111/docker-ansible-jenkins'
             }
         }
