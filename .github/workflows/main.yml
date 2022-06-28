@@ -30,19 +30,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
   
-    - name: Check out code
+    - name: Checkout 
       uses: actions/checkout@v3
-    
-
+    - name: do something to the code
+      run: echo "Changed code" > text.txt
     - name: Get Current Date
       id: date
       run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
-
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image
+    - id: docker-publish
+      name: Build image
+      uses: bitovi/github-actions-docker-publish@1.0.2
       with:
-        image: arka111/webapps
-        tags: ${{ steps.date.outputs.date }}
-        registry: hub.docker.com/repository/docker
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
+        docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        checkout: 'false'
+        image_tag: ${{ steps.date.outputs.date }}
+        sha: 'true' # won't do anything since image_tag is set
+        org_name: arka111
+        repo_name: webapps
+    - run: |
+        echo "Image Created:  ${{ env.image }}"
+        echo "Tag Created: ${{ env.tag }}"
