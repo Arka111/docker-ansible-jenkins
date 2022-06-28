@@ -43,6 +43,6 @@ jobs:
       with:
         image: arka111/webapps
         tags: ${{ steps.date.outputs.date }}
-        registry: docker.io
+        registry: hub.docker.com/repository/docker
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
