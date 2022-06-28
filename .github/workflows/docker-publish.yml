@@ -26,4 +26,4 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: arka111/webapps:$(date +%s)
+          tags: arka111/webapps:${{ steps.date.outputs.date }}
