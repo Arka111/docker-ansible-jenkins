@@ -55,6 +55,8 @@ jobs:
           
       - 
         name: Ansible playbook
-        uses: actions/ansible-cli-action@latest
+        uses: jawher/action-ansible@2.9.7
+        env:
+          ANSIBLE_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
-          command: "ansible-playbook deploy-docker.yml --extra-vars DOCKER_TAG=${{ steps.date.outputs.date }} --limit group1 --inventory dev.inv --verbose --key-file ${{secrets.SSH_PRIVATE_KEY}}"
+          args: ansible-playbook -i dev.inv deploy-docker.yml --extra-vars DOCKER_TAG=${{ steps.date.outputs.date }}
