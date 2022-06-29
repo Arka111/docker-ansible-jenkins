@@ -25,7 +25,7 @@ jobs:
         name: dockeransible.war        
         path: target/dockeransible.war
     
-  docker:
+  push_and_deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -71,4 +71,5 @@ jobs:
           options: |
             --extra-vars DOCKER_TAG=${{ steps.date.outputs.date }}
             --limit group1
+            --inventory dev.inv
             --verbose
