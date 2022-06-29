@@ -52,3 +52,23 @@ jobs:
           context: .
           push: true
           tags: arka111/webapps:${{ steps.date.outputs.date }}
+          
+      - 
+        name: Ansible playbook
+        uses: dawidd6/action-ansible-playbook@v2
+        with:
+        # Required, playbook filepath
+          playbook: deploy-docker.yml
+        # Optional, SSH private key
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+        # Optional, literal inventory file contents
+          inventory: |
+            [all]
+            34.220.218.245
+
+            [group1]
+            34.220.218.245
+          options: |
+            --extra-vars DOCKER_TAG=${{ steps.date.outputs.date }}
+            --limit group1
+            --verbose
