@@ -59,4 +59,4 @@ jobs:
         env:
           ANSIBLE_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
-          args: ansible-playbook -i dev.inv deploy-docker.yml --extra-vars DOCKER_TAG=${{ steps.date.outputs.date }}
+          args: ansible-playbook -i dev.inv deploy-docker.yml --extra-vars DOCKER_TAG=${{ steps.date.outputs.date }} -vvv
