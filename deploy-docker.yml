@@ -3,18 +3,14 @@
   become: True
   tasks:
     - name: Install python pip
-      apt:
-        name: python-pip
-        state: present
+      apt: name=python3-pip state=latest
     - name: Install docker
-      apt:
-        name: docker
-        state: present
+      apt: name=docker state=latest
     - name: start docker
-      service:
+      service: 
         name: docker
         state: started
-        enabled: yes
+      become: true
     - name: Install docker-py python module
       pip:
         name: docker-py
